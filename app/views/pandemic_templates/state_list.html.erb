@@ -1,0 +1,63 @@
+<h1><%= @data_date.strftime("%B #{@data_date.day.ordinalize}, %Y") %></h1>
+
+<p>Go <a href="/">back</a>.</p>
+
+<p>
+  Increase in individuals with confirmed or probable COVID-19 per the expanded CSTE case definition of April 5th, 2020 <a target="_blank" href="https://wwwn.cdc.gov/nndss/conditions/coronavirus-disease-2019-covid-19/case-definition/2020/">approved by the CDC</a>.
+</p>
+
+<table border="1">
+  <thead>
+    <tr>
+      <th>State</th>
+      <th>Positive Increase</th>
+      <th>Total Test Results Increase</th>
+      <th>Percent of new tests comprised of new positive cases</th>
+    </tr>
+  </thead>
+
+  <tbody>
+  <% @states.each do |state| %>
+    <tr>
+      <td>
+        <%= state.fetch("state") %>
+
+        <a href="/covid/<%= state.fetch("state") %>">
+          More details
+        </a>
+      </td>
+      
+      <td>
+        <%= state.fetch("positiveIncrease") %>
+      </td>
+
+      <td>
+        <%= state.fetch("totalTestResultsIncrease") %>
+      </td>
+
+      <td>
+        <% if state.fetch("totalTestResultsIncrease") != 0 %>
+          <% percent_positive = 100 * (state.fetch("positiveIncrease").to_f / state.fetch("totalTestResultsIncrease")) %>
+          <% if percent_positive >= 15 %>
+            <% text_color = "firebrick" %>
+          <% elsif percent_positive >= 10 %>
+            <% text_color = "orangered" %>
+          <% elsif percent_positive >= 5 %>
+            <% text_color = "lightsalmon" %>
+          <% elsif %>
+            <% text_color = "grey" %>
+          <% end %>
+
+          <span style="color: <%= text_color %>">
+            <%= number_to_percentage(percent_positive) %>
+          </span>
+        <% else %>
+          <span style="color: red">No tests</span>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+  <tbody>
+</table>
+
+<p>Data from <a href="https://covidtracking.com/" target="_blank">The COVID Tracking Project</a>.</p>

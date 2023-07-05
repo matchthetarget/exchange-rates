@@ -1,0 +1,46 @@
+<h1><%= @state %></h1>
+
+<p>Go <a href="/covid">back</a>.</p>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+  google.charts.load('current', {'packages':['corechart']});
+  google.charts.setOnLoadCallback(drawChart);
+
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable(<%= raw(@data_array.to_json) %>);
+
+    var options = {
+      title: 'Percent of new tests comprised of new positive cases',
+      legend: { position: 'bottom' }
+    };
+
+    var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+    chart.draw(data, options);
+  }
+</script>
+
+<div id="curve_chart" style="width: 900px; height: 500px"></div>
+
+<p>To draw a chart like this, include the following code in your template:</p>
+
+<pre>
+<code>
+<%=
+@tutorial_code
+%>
+</code>
+</pre>
+
+<p>
+  In your controller action, you must define the instance variable <code>@data_array</code> and populate it with an array of arrays that has the data for the line chart. It should look something like this, once you've populated it:
+</p>
+
+<%= (ap @data_array[0..5]).html_safe %>
+
+<p>
+  ..., etc. Then, the Google Charts library will do the rest. You can see more available charts in <a href="https://developers.google.com/chart/interactive/docs/gallery" target="_blank">the Charts Gallery</a>.
+</p>
+
+<p>Data from <a href="https://covidtracking.com/" target="_blank">The COVID Tracking Project</a>.</p>
