@@ -1,5 +1,5 @@
 {"success":true,
-  "symbols":{
+  "currencies":{
     "AED":{"description":"United Arab Emirates Dirham","code":"AED"},
     "AFN":{"description":"Afghan Afghani","code":"AFN"},
     "ALL":{"description":"Albanian Lek","code":"ALL"},

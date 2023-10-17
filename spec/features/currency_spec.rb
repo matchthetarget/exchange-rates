@@ -20,7 +20,7 @@ describe "root URL" do
       expect(page).to have_content("AOA")
       expect(page).to have_content("TMT")
       expect(page).to_not have_content("BOB"),
-        "Expected not to find the symbol 'BOB', hardcoded into the HTML but found it anywa, points: 1y."
+        "Expected not to find the symbol 'BOB', hardcoded into the HTML but found it anyway."
     
   end
 end
@@ -78,10 +78,10 @@ describe "/[CURRENCY SYMBOL]" do
       visit "/TMT"
     
       expect(page).to have_tag("a", :with => { :href => "/TMT/AMD"}, :text => /Convert 1 TMT to AMD/i),
-        "Expected page to have a link with the text, 'Convert 1 TMT to AMD...', with an href='/TMT/AMD', but didnt' find one."
+        "Expected page to have a link with the text, 'Convert 1 TMT to AMD...', with an href='/TMT/AMD', but did not find one."
       
       expect(page).to have_tag("a", :with => { :href => "/TMT/AOA"}, :text => /Convert 1 TMT to AOA/i),
-        "Expected page to have a link with the text, 'Convert 1 TMT to AOA...', with an href='/TMT/AOA', but didnt' find one."
+        "Expected page to have a link with the text, 'Convert 1 TMT to AOA...', with an href='/TMT/AOA', but did not find one."
       
   end
 end
